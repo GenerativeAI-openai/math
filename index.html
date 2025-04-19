@@ -85,26 +85,26 @@
         document.getElementById('result').innerText = '오답입니다.';
         document.getElementById('result').style.color = 'red';
       }
-      updateChart();
+      // updateChart();
       setTimeout(() => {
         current = (current + 1) % filtered.length;
         loadQuestion();
       }, 1200);
     }
 
-    function updateChart() {
-      new Chart(document.getElementById('pieChart'), {
-        type: 'pie',
-        data: {
-          labels: ['정답 (AC)', '오답 (WA)'],
-          datasets: [{ data: [stats.AC, stats.WA], backgroundColor: ['#4ade80', '#f87171'] }]
-        },
-        options: {
-          responsive: false,
-          plugins: { legend: { display: true, position: 'bottom' } }
-        }
-      });
-    }
+    // function updateChart() {
+    //   new Chart(document.getElementById('pieChart'), {
+    //     type: 'pie',
+    //     data: {
+    //       labels: ['정답 (AC)', '오답 (WA)'],
+    //       datasets: [{ data: [stats.AC, stats.WA], backgroundColor: ['#4ade80', '#f87171'] }]
+    //     },
+    //     options: {
+    //       responsive: false,
+    //       plugins: { legend: { display: true, position: 'bottom' } }
+    //     }
+    //   });
+    // }
 
     fetchProblems();
   </script>
