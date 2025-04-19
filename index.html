@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -75,7 +76,7 @@
 
     function checkAnswer() {
       const input = document.getElementById('answerInput').value.trim();
-      const correct = filtered[current].answer === input;
+      const correct = Array.isArray(filtered[current].answer) ? filtered[current].answer.includes(input) : filtered[current].answer === input;
       if (correct) {
         stats.AC++;
         document.getElementById('result').innerText = '정답입니다!';
