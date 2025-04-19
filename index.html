@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>한국 수학 문제 풀이</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { font-family: Arial; padding: 20px; text-align: center; }
+    .card { border: 1px solid #ccc; border-radius: 12px; padding: 20px; max-width: 500px; margin: 0 auto; }
+    .svg-container, .image { margin-top: 10px; }
+    .image img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+  <h1>📘 한국 수학 문제 풀이</h1>
+  <div class="card">
+    <div id="question" class="question">문제 불러오는 중...</div>
+    <div id="image" class="image"></div>
+    <div id="svgContainer" class="svg-container"></div>
+    <input type="text" id="answerInput" placeholder="정답을 입력하세요"/>
+    <button onclick="checkAnswer()">제출</button>
+    <div id="result" class="result"></div>
+  </div>
+  <canvas id="pieChart" width="300" height="300"></canvas>
+
+  <script>
+    let current = 0;
+    let stats = { AC: 0, WA: 0 };
+    let problems = [];
+
+    async function fetchProblems() {
+      const res = await fetch('problems.json');
+      problems = await res.json();
+      loadQuestion();
+    }
+
+    function loadQuestion() {
+      const p = problems[current];
+      document.getElementById('question').innerText = `[${p.grade}] ${p.question}`;
+      document.getElementById('answerInput').value = '';
+      document.getElementById('result').innerText = '';
+      document.getElementById('image').innerHTML = p.image ? `<img src="images/${p.image}" />` : '';
+      document.getElementById('svgContainer').innerHTML = p.svg ? fetch(`svgs/${p.svg}`).then(r => r.text()).then(svg => { document.getElementById('svgContainer').innerHTML = svg; }) : '';
+    }
+
+    function checkAnswer() {
+      const input = document.getElementById('answerInput').value.trim();
+      const correct = problems[current].answer === input;
+      if (correct) {
+        stats.AC++;
+        document.getElementById('result').innerText = '정답입니다!';
+        document.getElementById('result').style.color = 'green';
+      } else {
+        stats.WA++;
+        document.getElementById('result').innerText = '오답입니다.';
+        document.getElementById('result').style.color = 'red';
+      }
+      updateChart();
+      setTimeout(() => {
+        current = (current + 1) % problems.length;
+        loadQuestion();
+      }, 1200);
+    }
+
+    function updateChart() {
+      new Chart(document.getElementById('pieChart'), {
+        type: 'pie',
+        data: {
+          labels: ['정답 (AC)', '오답 (WA)'],
+          datasets: [{ data: [stats.AC, stats.WA], backgroundColor: ['#4ade80', '#f87171'] }]
+        }
+      });
+    }
+
+    fetchProblems();
+  </script>
+</body>
+</html>

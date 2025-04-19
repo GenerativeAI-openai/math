@@ -1,0 +1,40 @@
+[
+  {
+    "grade": "초4",
+    "question": "직사각형의 넓이: 가로 5cm, 세로 3cm",
+    "answer": "15"
+  },
+  {
+    "grade": "초5",
+    "question": "정육면체의 면의 개수는?",
+    "answer": "6",
+    "image": "cube.svg"
+  },
+  {
+    "grade": "중1",
+    "question": "(x + 2)(x - 2) = ?",
+    "answer": "x^2-4"
+  },
+  {
+    "grade": "중2",
+    "question": "다항식 x^2 + 2x + 1 을 완전제곱식으로 나타내면?",
+    "answer": "(x+1)^2"
+  },
+  {
+    "grade": "중2",
+    "question": "직육면체의 꼭짓점 개수는?",
+    "answer": "8",
+    "image": "rect_prism.svg"
+  },
+  {
+    "grade": "중3",
+    "question": "원의 넓이(반지름 3): πr² 공식 사용",
+    "answer": "28.3"
+  },
+  {
+    "grade": "초4",
+    "question": "아래 도형의 이름은?",
+    "answer": "정삼각형",
+    "svg": "triangle.svg"
+  }
+]
